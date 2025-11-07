@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Drivester</title>
+  <script>
+    // ========================================
+    // CENTRAL CONFIGURATION - Change here!
+    // ========================================
+    const REDIRECT_URL = 'https://sapered.com/test-drive-os';
+    
+    const TEXTS = {
+      de: {
+        title: 'Test Drive System',
+        message: 'Du wirst in wenigen Sekunden weitergeleitet…',
+        ifNot: 'Falls nicht,',
+        linkText: 'klicke hier'
+      },
+      en: {
+        title: 'Test Drive System',
+        message: 'You will be redirected in a few seconds…',
+        ifNot: 'If not,',
+        linkText: 'click here'
+      }
+    };
+    // ========================================
+    
+    // Set meta refresh dynamically
+    const meta = document.createElement('meta');
+    meta.httpEquiv = 'refresh';
+    meta.content = `3;url=${REDIRECT_URL}`;
+    document.head.appendChild(meta);
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+    @import url('https://fonts.cdnfonts.com/css/navigo');
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      width: 100%;
+      font-family: 'Poppins', sans-serif;
+      color: #FFF9EA;
+      background-color: #201E50;
+    }
+
+    body {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      flex-direction: column;
+    }
+
+    .content {
+      padding-left: 60px;
+    }
+
+    h1 {
+      font-family: 'Navigo', sans-serif;
+      font-weight: 900;
+      font-size: 3rem;
+      margin: 0;
+    }
+
+    .hint {
+      margin-top: 10px;
+      font-size: 1rem;
+      color: #FFF9EA;
+    }
+
+    a {
+      color: #FFF9EA;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="content">
+    <h1></h1>
+    <div class="hint" id="redirectText"></div>
+  </div>
+
+  <script>
+    // Detect browser language
+    const userLang = navigator.language || navigator.userLanguage;
+    const lang = userLang.toLowerCase().startsWith('de') ? 'de' : 'en';
+    const text = TEXTS[lang];
+
+    // Set title
+    document.querySelector('h1').textContent = text.title;
+
+    // Set redirect text
+    const redirectText = document.getElementById('redirectText');
+    redirectText.innerHTML = `
+      ${text.message}<br />
+      ${text.ifNot} <a href="${REDIRECT_URL}">${text.linkText}</a>.
+    `;
+  </script>
+</body>
+</html>
